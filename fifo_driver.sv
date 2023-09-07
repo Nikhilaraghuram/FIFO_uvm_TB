@@ -1,4 +1,4 @@
-`include "fifo_driver.sv"
+`include "fifo_define.sv"
 
 class fifo_driver extends uvm_driver#(fifo_transaction);
   
@@ -23,7 +23,7 @@ class fifo_driver extends uvm_driver#(fifo_transaction);
   //---------------------------------------
   virtual task run_phase(uvm_phase phase);
     forever begin
-      fifo_seq_item trans;
+      fifo_transaction trans;
       seq_item_port.get_next_item(trans);
       uvm_report_info("FIFO_DRIVER ", $psprintf("Got Transaction %s",trans.convert2string()));
       
