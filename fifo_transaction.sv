@@ -26,4 +26,10 @@ class fifo_transaction extends uvm_sequence_item;
         `uvm_field_int(o_alm_empty, UVM_ALL_ON)
         `uvm_field_int(o_empty, UVM_ALL_ON)
     `uvm_object_utils_end
-endclass 
+
+   function string convert2string();
+      return $psprintf("data_in=%0h,data_out=%0h,i_wren=%0d,i_rden=%0d,o_full=%od,o_empty=%0d,o_alm_full=%od,,o_alm_empty=%od",i_wrdata,o_rddata,i_wren,i_rden,o_alm_full,o_alm_empty);
+  endfunction
+
+endclass
+
