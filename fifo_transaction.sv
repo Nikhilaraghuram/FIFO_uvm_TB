@@ -1,4 +1,4 @@
-`define "fifo_define.sv"
+`include "fifo_define.sv"
 
 class fifo_transaction extends uvm_sequence_item;
    //data signals
