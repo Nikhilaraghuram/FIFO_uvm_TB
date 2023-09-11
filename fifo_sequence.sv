@@ -45,8 +45,8 @@ class write_sequence extends fifo_sequence #(fifo_transaction);
        tx=fifo_transaction::type_id::create("tx");
        
        start_item(tx);
-        i_wren == 1'b1;
-        i_rden == 1'b0;
+        i_wren = 1'b1;
+        i_rden = 1'b0;
        finish_item(tx);
       
      end
@@ -71,8 +71,8 @@ class read_sequence extends fifo_sequence #(fifo_transaction);
        tx=fifo_transaction::type_id::create("tx");
        
        start_item(tx);
-        i_wren == 1'b0;
-        i_rden == 1'b1;
+        i_wren = 1'b0;
+        i_rden = 1'b1;
        finish_item(tx);
       
      end
@@ -98,8 +98,8 @@ class write_read_sequence extends fifo_sequence #(fifo_transaction);
        tx=fifo_transaction::type_id::create("tx");
        
        start_item(tx);
-        i_wren == 1'b1;
-        i_rden == 1'b1;
+        i_wren = 1'b1;
+        i_rden = 1'b1;
        finish_item(tx);
       
      end
