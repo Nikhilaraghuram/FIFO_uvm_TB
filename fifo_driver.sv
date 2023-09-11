@@ -32,9 +32,7 @@ class fifo_driver extends uvm_driver#(fifo_transaction);
         `DRV.i_rden<=0;
         `DRV.i_wrdata<=0;
       end
-      //---------------------------------------
-      //Driver's reading logic
-      //---------------------------------------
+     
      else begin
         `DRV.i_wren<=trans.i_wren;
         `DRV.i_rden<=trans.i_rden;
