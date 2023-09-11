@@ -28,17 +28,17 @@ class fifo_driver extends uvm_driver#(fifo_transaction);
       @(`DRV);
      
       if(rstn) begin
-        `DRV.wr<=0;
-        `DRV.rd<=0;
-        `DRV.wrdata<=0;
+        `DRV.i_wren<=0;
+        `DRV.i_rden<=0;
+        `DRV.i_wrdata<=0;
       end
       //---------------------------------------
       //Driver's reading logic
       //---------------------------------------
      else begin
-        `DRV.wren<=trans.wren;
-        `DRV.rden<=trans.rden;
-        `DRV.wrdata<=trans.wrdata;
+        `DRV.i_wren<=trans.i_wren;
+        `DRV.i_rden<=trans.i_rden;
+        `DRV.i_wrdata<=trans.i_wrdata;
       end
      
         uvm_report_info("FIFO_DRIVER ", $psprintf("Got Response %s",trans.convert2string()));
