@@ -13,7 +13,14 @@ interface fifo_if(input bit clk, rstn);
         input rstn ;
    endclocking
 
+     clocking mon_cb@(posedge clk);
+        default input #0 output #0;
+        input o_alm_full , o_full,  o_alm_empty, o_empty;
+        input [DATA_W - 1 : 0] o_rddata;
+   endclocking
+
 modport DRV(clocking drv_cb);
-    
-endinterface : fifo_if
+modport MON( clocking mon_cb);   
+
+    endinterface : fifo_if
  
