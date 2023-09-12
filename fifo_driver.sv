@@ -6,6 +6,8 @@ class fifo_driver extends uvm_driver#(fifo_transaction);
   `uvm_component_utils(fifo_driver)
   
    virtual fifo_if vif;
+
+fifo_transaction trans;
   
   function new(string name, uvm_component parent = null);
     super.new(name,parent);
@@ -27,11 +29,11 @@ class fifo_driver extends uvm_driver#(fifo_transaction);
         `DRV.i_wrdata<=0;
       end
     forever begin
-      fifo_transaction trans;
+      
       seq_item_port.get_next_item(trans);
       uvm_report_info("FIFO_DRIVER ", $psprintf("Got Transaction %s",trans.convert2string()));
      
-      else if(trans.i_wren == 1)
+       if(trans.i_wren == 1)
         fifo_write(trans.i_wrdata);
       else if(trans.i_rden == 1)
         fifo_read();
