@@ -27,11 +27,11 @@ class fifo_monitor extends uvm_monitor;
    virtual task run_phase(uvm_phase phase);
     forever begin
       @(`MON)
-      if(`MON == 1)begin
+      if(`MON.i_wren == 1)begin
         $display("\n write enable  is high");
         trans.i_wrdata = `MON.i_wrdata;
-        trans.i_wren = 'b1;
-        trans.i_rden = 'b0;
+        trans.i_wren = 1'b1;
+        trans.i_rden = 1'b0;
         trans.o_alm_full = `MON.o_alm_full;
         trans.o_full = `MON.o_full;
        
@@ -41,8 +41,8 @@ class fifo_monitor extends uvm_monitor;
         @(`MON)
         $display("\nRean enable  is high");
         trans.o_rddata = `MON.o_rddata;
-        trans.i_rden= 'b1;
-        trans.i_wren = 'b0;
+        trans.i_rden= 1'b1;
+        trans.i_wren = 1'b0;
          trans.o_alm_empty = `MON.o_alm_empty;
         trans.o_empty = `MON.o_empty;
         ap.write(trans);
