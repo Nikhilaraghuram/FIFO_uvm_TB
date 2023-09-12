@@ -24,26 +24,37 @@ class fifo_driver extends uvm_driver#(fifo_transaction);
       fifo_transaction trans;
       seq_item_port.get_next_item(trans);
       uvm_report_info("FIFO_DRIVER ", $psprintf("Got Transaction %s",trans.convert2string()));
-      
-      @(`DRV);
-     
-      if(rstn) begin
+       @(`DRV)
+         if(rstn) begin
         `DRV.i_wren<=0;
         `DRV.i_rden<=0;
         `DRV.i_wrdata<=0;
       end
-     
-     else begin
-        `DRV.i_wren<=trans.i_wren;
-        `DRV.i_rden<=trans.i_rden;
-        `DRV.i_wrdata<=trans.i_wrdata;
-      end
-     
-        uvm_report_info("FIFO_DRIVER ", $psprintf("Got Response %s",trans.convert2string()));
+      else if(trans.i_wren == 1)
+        fifo_write(trans.i_wrdata);
+      else if(trans.i_rden == 1)
+        fifo_read();
+      
+      uvm_report_info("FIFO_DRIVER ", $psprintf("Got Response %s",trans.convert2string()));
       //Putting back response
       seq_item_port.put(trans);
       seq_item_port.item_done();
-    end
+    end 
+  endtask
+     
+  task fifo_write(input [DATA_W-1:0] din);
+    @(`DRV)
+   `DRV.i_wren<=trans.i_wren;
+   `DRV.i_wrdata<=trans.i_wrdata;    
+    @(`DRV)
+   `DRV.i_wren<=0;
+  endtask
+  
+   task fifo_read();
+     @(`DRV)
+     `DRV.i_rden<=trans.i_rden;
+    @(`DRV)
+    `DRV.i_rden<=0;
   endtask
   
 endclass
