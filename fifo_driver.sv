@@ -20,16 +20,17 @@ class fifo_driver extends uvm_driver#(fifo_transaction);
   endfunction
   
   task run_phase(uvm_phase phase);
-    forever begin
-      fifo_transaction trans;
-      seq_item_port.get_next_item(trans);
-      uvm_report_info("FIFO_DRIVER ", $psprintf("Got Transaction %s",trans.convert2string()));
-       @(`DRV)
+      @(`DRV)
          if(rstn) begin
         `DRV.i_wren<=0;
         `DRV.i_rden<=0;
         `DRV.i_wrdata<=0;
       end
+    forever begin
+      fifo_transaction trans;
+      seq_item_port.get_next_item(trans);
+      uvm_report_info("FIFO_DRIVER ", $psprintf("Got Transaction %s",trans.convert2string()));
+     
       else if(trans.i_wren == 1)
         fifo_write(trans.i_wrdata);
       else if(trans.i_rden == 1)
