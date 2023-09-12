@@ -1,4 +1,4 @@
-`include "fifo_pkg.sv"
+import fifo_pkg::*;
 import uvm_pkg::*;
 `include "uvm_macros.svh"
 `include "fifo_if.sv"
