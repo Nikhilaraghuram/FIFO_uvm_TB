@@ -22,7 +22,7 @@ class fifo_scoreboard extends uvm_scoreboard;
       queue.push_back(trans.i_wrdata);
       `uvm_info("write Data", $sformatf("wren: %0b rden: %0b wrdata: %0h full: %0b  alm_full: %0b",trans.i_wren, trans.i_wren,trans.i_wrdata, trans.o_full,trans.o_alm_full), UVM_LOW);
     end
-    else if (trans.i_rden == 1'b1)begin
+   if (trans.i_rden == 1'b1)begin
       if(queue.size() >= 'd1)begin
         examdata = queue.pop_front();
         `uvm_info("Read Data", $sformatf("examdata: %0h data_out: %0h empty: %0b   alm_empty: %0b", examdata, trans.o_rddata, trans.o_empty, trans.o_alm_empty), UVM_LOW);
