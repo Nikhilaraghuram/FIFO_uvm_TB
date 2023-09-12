@@ -1,2 +1,0 @@
-`include "fifo_define.sv"
-`define MON vif.MON.drv_cb
